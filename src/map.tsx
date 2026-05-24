@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import * as L from 'leaflet';
+import {getLocale} from '../Control/locale.ts';
 
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -12,10 +13,38 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
+interface Local {
+  name:  string,
+  endereco: string,
+  LatLong: L.LatLngTuple,
+  horario: string,
+  obs?: string
+}
+
+getLocale().then(()=>{
+  
+})
+
 export function MapaColeta() {
-  const Locais: L.LatLngTuple[] = [
-    [-23.55052, -46.633308],  
-    [-23.5597000098, -46.6487628251]  
+  const Locais: Local[] = [
+    {
+      name: "casa",
+      endereco: "lugar",
+      LatLong: [-23.55052, -46.633308],
+      horario:'sei lá'
+    },  
+    {
+      name: "casa",
+      endereco: "lugar",
+      LatLong: [-23.5597000098, -46.6487628251],
+      horario:'sei lá'
+    },  
+    {
+      name: "casa",
+      endereco: "lugar",
+      LatLong: [-22.5597000098, -45.6487628251],
+      horario:'sim'
+    }
   ];
   const posicaoInicial: L.LatLngTuple = [-23.55052, -46.633308];
 
@@ -30,12 +59,12 @@ export function MapaColeta() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {Locais.map((Res )=>{
+        {Locais.map((Res)=>{
           return (
-          <Marker position={Res}>
+          <Marker position={Res.LatLong}>
             <Popup>
-              <strong>Ponto de Coleta Tampinhas</strong> <br />
-              Rua Exemplo, 123 - Aberto de Seg a Sex.
+              <strong>{Res.name}</strong> <br />
+              {Res.endereco} - {Res.horario}.
             </Popup>
           </Marker>
           )})}
