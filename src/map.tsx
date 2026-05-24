@@ -13,26 +13,32 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 export function MapaColeta() {
-  const posicaoInicial:L.LatLngTuple = [-23.55052, -46.633308]; 
+  const Locais: L.LatLngTuple[] = [
+    [-23.55052, -46.633308],  
+    [-23.5597000098, -46.6487628251]  
+  ];
+  const posicaoInicial: L.LatLngTuple = [-23.55052, -46.633308];
 
   return (
     <div style={{ height: '500px', width: '100%' }}>
       <MapContainer 
-        center={posicaoInicial} 
-        zoom={13} 
-        style={{ height: '100%', width: '100%' }}
+      center={posicaoInicial} 
+      zoom={13} 
+      style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-
-        <Marker position={[-23.55552, -46.638308]}>
-          <Popup>
-            <strong>Ponto de Coleta Tampinhas</strong> <br />
-            Rua Exemplo, 123 - Aberto de Seg a Sex.
-          </Popup>
-        </Marker>
+        {Locais.map((Res )=>{
+          return (
+          <Marker position={Res}>
+            <Popup>
+              <strong>Ponto de Coleta Tampinhas</strong> <br />
+              Rua Exemplo, 123 - Aberto de Seg a Sex.
+            </Popup>
+          </Marker>
+          )})}
       </MapContainer>
     </div>
   );
