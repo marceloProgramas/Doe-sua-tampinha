@@ -40,47 +40,40 @@ export function MapaColeta() {
       horario:'sei lá'
     },  
     {
-      name: "fim do mundo",
-      endereco: "lugar",
-      LatLong: [-22.5597000098, -45.6487628251],
+      name: "Instituto Guerreiros do Norte Thaienny Mily Casa de Apoio as Crianças com Cancer",
+      endereco: "R. São Félix do Piauí, n213 - Vila Carmosina, São Paulo - SP,",
+      LatLong: [-23.5489086, -46.4529659],
       key: 3,
-      horario:'sim'
+      horario:'todos os dias'
     }
   ];
-  let minhaPosicao:L.LatLngTuple
-  const [minhaPosicao, setMinhaPosicao] = useState<L.LatLngTuple>([-23.55052, -46.633308]);
+  const [minhaPosicao, setMinhaPosicao] = useState<L.LatLngTuple | null>(null);
 
   useEffect(() => {
     async function carregarLocalizacaoAtual() {
       try {
         const coordenadas = await getLocale();
         setMinhaPosicao(coordenadas);
-      } catch (erro) {
+        console.log("Posição obtida com sucesso:", coordenadas);
+      }catch (erro) {
+        console.error("Erro ao pegar localização, usando padrão. Erro:", erro);
         setMinhaPosicao([-23.55052, -46.633308]); 
       }
     }
 
-    async function verificarMaisPerto() {
-      await carregarLocalizacaoAtual();
-      console.log(minhaPosicao)
-      let MaisProximo:Local
-      Locais.map((Res)=>{
-        console.log(Res.name)
-        console.log(Res.LatLong[0]-minhaPosicao[0])
-        console.log(Res.LatLong[1]-minhaPosicao[1])
-      })
-    }
-    
-    verificarMaisPerto()
-    console.log(minhaPosicao)
+    carregarLocalizacaoAtual();
   }, []);
 
+  if (!minhaPosicao) {
+    return <div style={{ padding: '20px', textAlign: 'center' }}>Carregando mapa com sua localização...</div>;
+  } 
 
   return (
     <div style={{ height: '500px', width: '100%' }}>
+      
       <MapContainer 
       center={minhaPosicao} 
-      zoom={13} 
+      zoom={15} 
       style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
