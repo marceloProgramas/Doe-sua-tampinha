@@ -1,24 +1,25 @@
-const options = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0,
-};
+import * as L from 'leaflet';
 
-function success(pos:any) {
-  const crd = pos.coords;
+export async function getLocale(): Promise<L.LatLngTuple> {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error("Geolocalização não é suportada pelo seu navegador."));
+      return;
+    }
 
-  return [crd.latitude,crd.longitude]
-  console.log("Your current position is:");
-  console.log(`Latitude: ${crd.latitude}`);
-  console.log(`Longitude: ${crd.longitude}`);
-  console.log(`More or less ${crd.accuracy} meters.`);
-}
-
-function error(err:any) {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-
-
-export async function getLocale(){
-    console.log(navigator.geolocation.getCurrentPosition(success, error, options));
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const crd = pos.coords;
+        resolve([crd.latitude, crd.longitude]);
+      },
+      (err) => {
+        reject(err);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      }
+    );
+  });
 }
