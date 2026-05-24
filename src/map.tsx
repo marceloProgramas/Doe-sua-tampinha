@@ -26,24 +26,17 @@ interface Local {
 export function MapaColeta() {
   const Locais: Local[] = [
     {
-      name: "marco 0",
-      endereco: "lugar",
-      LatLong: [-23.55052, -46.633308],
-      key: 1,
-      horario:'sei lá'
-    },  
-    {
-      name: "shopping",
-      endereco: "lugar",
-      LatLong: [-23.5597000098, -46.6487628251],
-      key: 2,
-      horario:'sei lá'
-    },  
-    {
       name: "Instituto Guerreiros do Norte Thaienny Mily Casa de Apoio as Crianças com Cancer",
       endereco: "R. São Félix do Piauí, n213 - Vila Carmosina, São Paulo - SP,",
       LatLong: [-23.5489086, -46.4529659],
-      key: 3,
+      key: 1,
+      horario:'todos os dias'
+    },
+    {
+      name: "local test",
+      endereco: "R. Sabbado D'Ângelo, 1275 - Itaquera, São Paulo - SP",
+      LatLong: [-23.5447937, -46.4458657],
+      key: 2,
       horario:'todos os dias'
     }
   ];
@@ -55,9 +48,25 @@ export function MapaColeta() {
         const coordenadas = await getLocale();
         setMinhaPosicao(coordenadas);
         console.log("Posição obtida com sucesso:", coordenadas);
+        CompararDis(coordenadas)
       }catch (erro) {
         console.error("Erro ao pegar localização, usando padrão. Erro:", erro);
         setMinhaPosicao([-23.55052, -46.633308]); 
+      }
+    }
+
+    function CompararDis(posicao:L.LatLngTuple){
+      let distMin:number = 100;
+      let Prox: Local | undefined = undefined;
+      for(let Local of Locais){
+        let distancia:number = Math.sqrt((posicao[0]-Local.LatLong[0])**2 + (posicao[1]-Local.LatLong[1])**2);
+        if(distMin> distancia){
+          distMin = distancia;
+          Prox = Local;
+        }
+      }
+      if(Prox){
+        setMinhaPosicao(Prox.LatLong);
       }
     }
 
@@ -86,6 +95,7 @@ export function MapaColeta() {
             <Popup>
               <strong>{Res.name}</strong> <br />
               {Res.endereco} - {Res.horario}.
+              <a href={`https://www.google.com/maps/@${Res.LatLong[0]},${Res.LatLong[1]}`}>clique aqui</a>
             </Popup>
           </Marker>
           )})}
