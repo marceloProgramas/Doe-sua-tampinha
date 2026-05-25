@@ -43,7 +43,7 @@ export function MapaColeta() {
       name: "local test 2",
       endereco: "R. Sabbado D'Ângelo, 1275 - Itaquera, São Paulo - SP",
       LatLong: [-23.5450117, -46.4588806],
-      key: 2,
+      key: 3,
       horario:'todos os dias'
     }
   ];
@@ -54,10 +54,8 @@ export function MapaColeta() {
       try {
         const coordenadas = await getLocale();
         setMinhaPosicao(coordenadas);
-        console.log("Posição obtida com sucesso:", coordenadas);
         CompararDis(coordenadas)
       }catch (erro) {
-        console.error("Erro ao pegar localização, usando padrão. Erro:", erro);
         setMinhaPosicao([-23.55052, -46.633308]); 
       }
     }
@@ -85,7 +83,7 @@ export function MapaColeta() {
   } 
 
   return (
-    <div style={{ height: '500px', width: '100%' }}>
+    <div style={{ height: '500px', width: '70%' }}>
       
       <MapContainer 
       center={minhaPosicao} 
@@ -101,8 +99,9 @@ export function MapaColeta() {
           <Marker position={Res.LatLong} key={Res.key}>
             <Popup>
               <strong>{Res.name}</strong> <br />
-              {Res.endereco} - {Res.horario}.
-              <a href={`https://www.google.com/maps/dir/?api=1&destination=${Res.LatLong[0]},${Res.LatLong[1]}`}>clique aqui</a>
+              {Res.endereco} - {Res.horario}.<br/>
+              saiba como chegar: 
+              <a href={`https://www.google.com/maps/dir/?api=1&destination=${Res.LatLong[0]},${Res.LatLong[1]}`} target='_blank'>clique aqui</a>
             </Popup>
           </Marker>
           )})}

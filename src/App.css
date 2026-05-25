@@ -1,0 +1,14 @@
+.mapa{
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Alinha horizontalmente */
+}
+
+.fundo{
+    display: flex;
+    justify-content: center; /* Alinha horizontalmente */
+    flex-direction: column;
+  
+    height: 100vh;
+    background-color: aqua;
+}

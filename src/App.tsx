@@ -5,7 +5,12 @@ function App() {
 
   return (
     <>
-    <MapaColeta />
+    <div className='fundo'>
+      <p>local mais proximo para entregar suas tampinhas:</p>
+      <div className='mapa'>
+        <MapaColeta />
+      </div>
+    </div>
     </>
   )
 }
