@@ -38,6 +38,13 @@ export function MapaColeta() {
       LatLong: [-23.5447937, -46.4458657],
       key: 2,
       horario:'todos os dias'
+    },
+    {
+      name: "local test 2",
+      endereco: "R. Sabbado D'Ângelo, 1275 - Itaquera, São Paulo - SP",
+      LatLong: [-23.5450117, -46.4588806],
+      key: 2,
+      horario:'todos os dias'
     }
   ];
   const [minhaPosicao, setMinhaPosicao] = useState<L.LatLngTuple | null>(null);
@@ -95,7 +102,7 @@ export function MapaColeta() {
             <Popup>
               <strong>{Res.name}</strong> <br />
               {Res.endereco} - {Res.horario}.
-              <a href={`https://www.google.com/maps/@${Res.LatLong[0]},${Res.LatLong[1]}`}>clique aqui</a>
+              <a href={`https://www.google.com/maps/dir/?api=1&destination=${Res.LatLong[0]},${Res.LatLong[1]}`}>clique aqui</a>
             </Popup>
           </Marker>
           )})}
