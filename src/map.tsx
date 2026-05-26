@@ -47,16 +47,28 @@ export function MapaColeta() {
       horario:'todos os dias'
     }
   ];
-  const [minhaPosicao, setMinhaPosicao] = useState<L.LatLngTuple | null>(null);
+  const [minhaPosicao, setMinhaPosicao] = useState<Local | null>(null);
 
   useEffect(() => {
     async function carregarLocalizacaoAtual() {
       try {
         const coordenadas = await getLocale();
-        setMinhaPosicao(coordenadas);
+        setMinhaPosicao({
+          name:  "string",
+          endereco: "string",
+          LatLong: coordenadas,
+          horario: "string",
+          key: 0,
+        });
         CompararDis(coordenadas)
       }catch (erro) {
-        setMinhaPosicao([-23.55052, -46.633308]); 
+        setMinhaPosicao({
+          name:  "string",
+          endereco: "string",
+          LatLong: [-23.55052, -46.633308],
+          horario: "string",
+          key: 0,
+        }); 
       }
     }
 
@@ -71,7 +83,7 @@ export function MapaColeta() {
         }
       }
       if(Prox){
-        setMinhaPosicao(Prox.LatLong);
+        setMinhaPosicao(Prox);
       }
     }
 
@@ -86,7 +98,7 @@ export function MapaColeta() {
     <div style={{ height: '500px', width: '70%' }}>
       
       <MapContainer 
-      center={minhaPosicao} 
+      center={minhaPosicao.LatLong} 
       zoom={15} 
       style={{ height: '100%', width: '100%' }}
       >
@@ -106,6 +118,7 @@ export function MapaColeta() {
           </Marker>
           )})}
       </MapContainer>
+      <p>local mais proximo: {minhaPosicao.name}</p>
     </div>
   );
 }

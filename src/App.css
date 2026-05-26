@@ -1,3 +1,7 @@
+body{
+    background-color: aqua;
+}
+
 .mapa{
     width: 100%;
     display: flex;
@@ -8,7 +12,25 @@
     display: flex;
     justify-content: center; /* Alinha horizontalmente */
     flex-direction: column;
-  
-    height: 100vh;
-    background-color: aqua;
+    
+}
+
+.header-bar p {
+    margin-inline: auto;
+}
+.header-bar{
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: blanchedalmond;
+    
+    display: flex;
+}
+
+
+
+img.tampinha{
+    width: 5rem;
+    rotate: 315deg;
+    margin-right: 2rem;
 }
