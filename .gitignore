@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# não pronto
+buscarLocal.ts
+locaisConverter.ts
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

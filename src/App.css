@@ -1,5 +1,5 @@
 body{
-    background-color: aqua;
+    background-color: #fef3ed;
 }
 
 .mapa{
@@ -10,27 +10,74 @@ body{
 
 .fundo{
     display: flex;
+
     justify-content: center; /* Alinha horizontalmente */
     flex-direction: column;
     
+    padding-inline: 1rem;
+
+    border: 2px solid black ;
+}
+
+.fundo, .sobre{
+    margin-inline: 20%;
+}
+
+@media (min-width: 768px) {
+    .sobre{
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+.sobre{
+    
+    align-items: center;
+}
+
+.sobre img{
+    height: 40rem;
+    width: 30rem;
+    object-fit: cover; 
+    object-position: center;
 }
 
 .header-bar p {
     margin-inline: auto;
 }
+
 .header-bar{
-    padding: 1rem;
+    padding: 1rem 2rem;
     border: 1px solid black;
     border-radius: 5px;
-    background-color: blanchedalmond;
+    background-color: #ec9fc1;
     
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-bar img{
+    height: 10rem;
+    border-radius: 5px;
+}
+
+.header-bar div{
     display: flex;
 }
 
+p{
+    font-size: 2rem;
+}
 
+h2{
+    font-size: 4rem;
+}
 
 img.tampinha{
     width: 5rem;
+    height: 5rem;
     rotate: 315deg;
     margin-right: 2rem;
 }

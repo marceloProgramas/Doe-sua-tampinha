@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import * as L from 'leaflet';
+import type {Local} from '../types/types.ts';
 import {getLocale} from '../Control/locale.ts';
 
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
@@ -14,36 +15,28 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-interface Local {
-  name:  string,
-  endereco: string,
-  LatLong: L.LatLngTuple,
-  horario: string,
-  key: number,
-  obs?: string
-}
 
 export function MapaColeta() {
   const Locais: Local[] = [
     {
-      name: "Instituto Guerreiros do Norte Thaienny Mily Casa de Apoio as Crianças com Cancer",
+      nome: "Instituto Guerreiros do Norte Thaienny Mily Casa de Apoio as Crianças com Cancer",
       endereco: "R. São Félix do Piauí, n213 - Vila Carmosina, São Paulo - SP,",
       LatLong: [-23.5489086, -46.4529659],
-      key: 1,
+      key: "1",
       horario:'todos os dias'
     },
     {
-      name: "local test",
+      nome: "local test",
       endereco: "R. Sabbado D'Ângelo, 1275 - Itaquera, São Paulo - SP",
       LatLong: [-23.5447937, -46.4458657],
-      key: 2,
+      key: "2",
       horario:'todos os dias'
     },
     {
-      name: "local test 2",
+      nome: "local test 2",
       endereco: "R. Sabbado D'Ângelo, 1275 - Itaquera, São Paulo - SP",
       LatLong: [-23.5450117, -46.4588806],
-      key: 3,
+      key: "3",
       horario:'todos os dias'
     }
   ];
@@ -54,20 +47,20 @@ export function MapaColeta() {
       try {
         const coordenadas = await getLocale();
         setMinhaPosicao({
-          name:  "string",
+          nome:  "string",
           endereco: "string",
           LatLong: coordenadas,
           horario: "string",
-          key: 0,
+          key: "0",
         });
         CompararDis(coordenadas)
       }catch (erro) {
         setMinhaPosicao({
-          name:  "string",
+          nome:  "string",
           endereco: "string",
           LatLong: [-23.55052, -46.633308],
           horario: "string",
-          key: 0,
+          key: "0",
         }); 
       }
     }
@@ -95,7 +88,7 @@ export function MapaColeta() {
   } 
 
   return (
-    <div style={{ height: '500px', width: '70%' }}>
+    <div style={{ height: '500px', width: '100%' }}>
       
       <MapContainer 
       center={minhaPosicao.LatLong} 
@@ -110,7 +103,7 @@ export function MapaColeta() {
           return (
           <Marker position={Res.LatLong} key={Res.key}>
             <Popup>
-              <strong>{Res.name}</strong> <br />
+              <strong>{Res.nome}</strong> <br />
               {Res.endereco} - {Res.horario}.<br/>
               saiba como chegar: 
               <a href={`https://www.google.com/maps/dir/?api=1&destination=${Res.LatLong[0]},${Res.LatLong[1]}`} target='_blank'>clique aqui</a>
@@ -118,7 +111,7 @@ export function MapaColeta() {
           </Marker>
           )})}
       </MapContainer>
-      <p>local mais proximo: {minhaPosicao.name}</p>
+      <p>local mais proximo: {minhaPosicao.nome}</p>
     </div>
   );
 }
