@@ -19,25 +19,14 @@ body{
     border: 2px solid black ;
 }
 
-.fundo, .sobre{
-    margin-inline: 20%;
-}
-
-@media (min-width: 768px) {
-    .sobre{
-        display: flex;
-        flex-direction: row;
-    }
-}
-
 .sobre{
     
     align-items: center;
 }
 
 .sobre img{
-    height: 40rem;
-    width: 30rem;
+    height: 30rem;
+    width: 20rem;
     object-fit: cover; 
     object-position: center;
 }
@@ -59,12 +48,13 @@ body{
 }
 
 .header-bar img{
-    height: 10rem;
+    height: 5rem;
     border-radius: 5px;
 }
 
 .header-bar div{
     display: flex;
+    align-items: center;
 }
 
 p{
@@ -76,8 +66,36 @@ h2{
 }
 
 img.tampinha{
-    width: 5rem;
-    height: 5rem;
+    width: 3rem;
+    height: 3rem;
     rotate: 315deg;
     margin-right: 2rem;
+}
+
+@media (min-width: 780px) {
+    .fundo, .sobre{
+        margin-inline: 20%;
+    }
+    .sobre{
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 430px){
+    .sobre img{
+    height: 40rem;
+    width: 30rem;
+    object-fit: cover; 
+    object-position: center;
+    }
+
+    .header-bar img{
+        height: 8rem;
+    }
+
+    img.tampinha{
+        width: 5rem;
+        height: 5rem;
+    }
 }

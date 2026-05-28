@@ -1,10 +1,10 @@
-import * as L from 'leaflet';
+import { GeoPoint } from "firebase/firestore";
 
 export interface Local {
-  nome:  string,
-  endereco: string,
-  LatLong: L.LatLngTuple,
-  horario: string,
-  key: string,
-  obs?: string
+  id?: string;        
+  name: string;
+  endereco: string;
+  LatLong: GeoPoint;  
+  horario: string;
+  obs?: string;       
 }

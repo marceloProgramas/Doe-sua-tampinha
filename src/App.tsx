@@ -16,7 +16,7 @@ function App() {
       <div>
         <h2>Para que são as tampinhas</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac urna et risus vestibulum commodo non at sapien. Vivamus vulputate magna non nibh tristique, eu aliquam nunc dapibus. Mauris sed erat arcu. Quisque consequat dui sit amet mi sagittis condimentum. Phasellus efficitur sapien ante, eu fermentum mi mollis non. Curabitur pretium dignissim tristique. Ut dapibus justo est, id aliquet felis malesuada sit amet. Donec libero ante, sagittis quis urna ut, vehicula rutrum arcu. Phasellus ipsum neque, mattis finibus quam id, pulvinar dictum nisi. Suspendisse quis ante sed lectus congue fringilla. Nam nec purus sem. Curabitur tincidunt molestie malesuada.
+          As tampinhas plásticas doadas são recicladas e transformadas em recursos financeiros fundamentais para o Instituto Casa Thaienny. O valor arrecadado com a venda desses materiais é totalmente revertido para o custeio de exames, medicamentos, tratamentos e todo o suporte essencial dado às famílias acolhidas. Assim, um pequeno objeto que iria para o lixo vira um gesto concreto de solidariedade, ajudando a manter as portas da Casa abertas.
         </p>
       </div>
       <img src="./Tampas.jpg" alt="foto das tampinhas" />

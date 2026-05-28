@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useEffect, useState } from 'react';
 import * as L from 'leaflet';
-import type {Local} from '../types/types.ts';
-import {getLocale} from '../Control/locale.ts';
 
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+import {getLocale} from '../Control/locale.ts';
+import {listarLocaisNoMapa} from "../Control/buscarLocal.ts";
 
 let DefaultIcon = L.icon({
     iconUrl: markerIcon,
@@ -15,75 +16,58 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
+export interface Local {
+  name:  string,
+  endereco: string,
+  LatLong: L.LatLngTuple,
+  horario: string,
+  id: string,
+  obs?: string
+}
 
 export function MapaColeta() {
-  const Locais: Local[] = [
-    {
-      nome: "Instituto Guerreiros do Norte Thaienny Mily Casa de Apoio as Crianças com Cancer",
-      endereco: "R. São Félix do Piauí, n213 - Vila Carmosina, São Paulo - SP,",
-      LatLong: [-23.5489086, -46.4529659],
-      key: "1",
-      horario:'todos os dias'
-    },
-    {
-      nome: "local test",
-      endereco: "R. Sabbado D'Ângelo, 1275 - Itaquera, São Paulo - SP",
-      LatLong: [-23.5447937, -46.4458657],
-      key: "2",
-      horario:'todos os dias'
-    },
-    {
-      nome: "local test 2",
-      endereco: "R. Sabbado D'Ângelo, 1275 - Itaquera, São Paulo - SP",
-      LatLong: [-23.5450117, -46.4588806],
-      key: "3",
-      horario:'todos os dias'
-    }
-  ];
+  const [Locais,setLocais] = useState<Local[]| null>(null);
   const [minhaPosicao, setMinhaPosicao] = useState<Local | null>(null);
 
   useEffect(() => {
-    async function carregarLocalizacaoAtual() {
+    async function carregarLocalizacaoAtual(Locais: Local[]) {
       try {
         const coordenadas = await getLocale();
-        setMinhaPosicao({
-          nome:  "string",
-          endereco: "string",
-          LatLong: coordenadas,
-          horario: "string",
-          key: "0",
-        });
-        CompararDis(coordenadas)
+        CompararDis(Locais, coordenadas)
       }catch (erro) {
         setMinhaPosicao({
-          nome:  "string",
+          name:  "string",
           endereco: "string",
           LatLong: [-23.55052, -46.633308],
           horario: "string",
-          key: "0",
+          id: "0",
         }); 
+        console.error(erro)
       }
     }
 
-    function CompararDis(posicao:L.LatLngTuple){
-      let distMin:number = 100;
+    function CompararDis(Locais:Local[], posicao:L.LatLngTuple){
+      let distMin:number = 1000000;
       let Prox: Local | undefined = undefined;
       for(let Local of Locais){
         let distancia:number = Math.sqrt((posicao[0]-Local.LatLong[0])**2 + (posicao[1]-Local.LatLong[1])**2);
         if(distMin> distancia){
-          distMin = distancia;
-          Prox = Local;
+            distMin = distancia;
+            Prox = Local;
+          }
         }
-      }
-      if(Prox){
-        setMinhaPosicao(Prox);
-      }
+        if(Prox){
+          setMinhaPosicao(Prox);
+        }
     }
-
-    carregarLocalizacaoAtual();
+    
+    listarLocaisNoMapa().then((r)=>{
+      setLocais(r);
+      carregarLocalizacaoAtual(r);
+    });
   }, []);
 
-  if (!minhaPosicao) {
+  if (!minhaPosicao || !Locais) {
     return <div style={{ padding: '20px', textAlign: 'center' }}>Carregando mapa com sua localização...</div>;
   } 
 
@@ -101,9 +85,9 @@ export function MapaColeta() {
         />
         {Locais.map((Res)=>{
           return (
-          <Marker position={Res.LatLong} key={Res.key}>
+          <Marker position={Res.LatLong} key={Res.id}>
             <Popup>
-              <strong>{Res.nome}</strong> <br />
+              <strong>{Res.name}</strong> <br />
               {Res.endereco} - {Res.horario}.<br/>
               saiba como chegar: 
               <a href={`https://www.google.com/maps/dir/?api=1&destination=${Res.LatLong[0]},${Res.LatLong[1]}`} target='_blank'>clique aqui</a>
@@ -111,7 +95,6 @@ export function MapaColeta() {
           </Marker>
           )})}
       </MapContainer>
-      <p>local mais proximo: {minhaPosicao.nome}</p>
     </div>
   );
 }
