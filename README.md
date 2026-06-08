@@ -20,6 +20,6 @@ O projeto uniu o desenvolvimento frontend avançado com um impacto social direto
 * **Resolução de Tipagem Complexa:** Aprofundamento em TypeScript para lidar com dados de localização e componentes do mapa, garantindo um código altamente seguro, escalável e com tipagem robusta.
 
 ## 🌐 onde achar
-[Site](https:doe-sua-tampinha.vercel.app)
+[Site](https://doe-sua-tampinha.vercel.app)
 
 [Voltar ao inicio](https://github.com/marceloProgramas)
