@@ -6,8 +6,6 @@
 ## 📝 Descrição do Projeto
 Plataforma web desenvolvida para localizar pontos de coleta de tampinhas plásticas com um propósito social e ambiental. O projeto visa centralizar e facilitar o acesso aos pontos de arrecadação para apoiar o **Instituto Casa Thaienny**, ajudando a converter a reciclagem em fundos essenciais para a instituição.
 
-Além do mapa interativo, a aplicação também atua como um portal de conscientização, trazendo informações sobre o impacto positivo e a importância da reciclagem de tampinhas para o ecossistema.
-
 ## 🚀 Tecnologias Utilizadas
 * **Frontend:** React
 * **Linguagem:** TypeScript 
